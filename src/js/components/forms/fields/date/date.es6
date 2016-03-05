@@ -103,15 +103,15 @@ class DateField extends FieldBase {
     }
 
     switch (date.constructor.name) {
-      case "Date":
-      case "Number":
-        return Moment(date);
-      case "Moment":
-        return date;
-      case "String":
-        return Moment(date, this.props.dateFormat);
-      default:
-        return null;
+    case "Date":
+    case "Number":
+      return Moment(date);
+    case "Moment":
+      return date;
+    case "String":
+      return Moment(date, this.props.dateFormat);
+    default:
+      return null;
     }
   }
 
@@ -133,7 +133,7 @@ class DateField extends FieldBase {
       if (typeof value === 'object') {
         return value.format(this.props.dateFormat);
       } else {
-        return value;
+        return this.momentDate(value).format(this.props.dateFormat);
       }
     }
   }
@@ -149,7 +149,7 @@ class DateField extends FieldBase {
       return this.triggerContent();
     }
   }
-};
+}
 
 DateField.displayName = "DateField";
 

@@ -9,6 +9,7 @@ Getting Started
 2. Install dependencies
 ```shell
 $ npm install
+$ npm install -g karma-cli
 $ gem install scss-lint
 ```
 3. Serve app
