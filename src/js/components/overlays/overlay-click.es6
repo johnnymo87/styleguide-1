@@ -30,12 +30,25 @@ export default React.createClass({
     return classes.join(' ');
   },
 
+  findParent(givenNode) {
+    let parent = givenNode.parentElement;
+    if (parent) {
+      return this.findParent(parent);
+    } else {
+      return givenNode;
+    }
+  },
+
   componentDidMount() {
-    document.addEventListener('click', this.handleDocumentClick);
+    this.findParent(React.findDOMNode(this)).addEventListener(
+      'click', this.handleDocumentClick
+    );
   },
 
   componentWillUnmount() {
-    document.removeEventListener('click', this.handleDocumentClick);
+    this.findParent(React.findDOMNode(this)).removeEventListener(
+      'click', this.handleDocumentClick
+    );
   },
 
   content() {
@@ -50,7 +63,7 @@ export default React.createClass({
   },
 
   handleDocumentClick(e) {
-    if (this.getDOMNode().contains(e.target)) {
+    if (React.findDOMNode(this).contains(e.target)) {
       if (!this.state.isOpen) {
         this.show();
       } else {

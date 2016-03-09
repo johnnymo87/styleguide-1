@@ -1,6 +1,7 @@
 import { expect } from 'chai';
 import TestUtils from 'react/lib/ReactTestUtils';
 import React from 'react';
+import Moment from 'moment';
 import DateField from 'forms/fields/date/date';
 
 describe('DateField', () => {
@@ -78,6 +79,43 @@ describe('DateField', () => {
       expect(component.refs.startDate.value()).to.be.undefined;
       component.setState({ startDate: 1431648000000 });
       expect(component.refs.startDate.value()).to.eql(1431648000000);
+    });
+
+    it('is set the a date string in the given dateFormat when clicked through the UI', () => {
+      class Example extends React.Component {
+        constructor(props) {
+          super(props);
+          this.render = this.render.bind(this);
+          this.state = {};
+        }
+        render() {
+          return (
+            <DateField
+              name="startDate"
+              ref="startDate"
+              label="Start Date"
+              dateFormat="MM/DD/YYYY"
+              key={this.state.startDate}
+              defaultValue={this.state.startDate}
+            />
+          );
+        }
+      }
+
+      let component = TestUtils.renderIntoDocument(<Example />);
+      let input = React.findDOMNode(component).getElementsByTagName('input')[0];
+      input.dispatchEvent(
+           new MouseEvent('click', {'view': window, 'bubbles': true, 'cancelable': true})
+      );
+      let firstDay = TestUtils.scryRenderedDOMComponentsWithClass(
+        component, 'day'
+      )[0];
+      TestUtils.Simulate.click(
+        TestUtils.scryRenderedDOMComponentsWithTag(firstDay, 'div')[1]
+      );
+      expect(component.refs.startDate.value()).to.eql(
+        Moment().startOf('month').format('MM/DD/YYYY')
+      );
     });
   });
 });
