@@ -514,6 +514,10 @@ export default React.createClass({
                      extraClasses={['py2']}
                      value={new Date} />
           <div className='clearfix'></div>
+          <DateField dateFormat='DD/MM/YYYY'
+                     extraClasses={['py2']}
+                     defaultValue='15/05/2016' />
+          <div className='clearfix'></div>
           <DateField dateFormat='MMM D, YYYY'
                      extraClasses={['py2']}
                      label="With Min/Max Dates"

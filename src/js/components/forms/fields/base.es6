@@ -24,6 +24,7 @@ var fieldProps = {
 class FieldBase extends React.Component {
 
   constructor() {
+    console.log('FieldBase constructor');
     super();
     this.handleChange = this.handleChange.bind(this);
     this.state = {
@@ -46,6 +47,7 @@ class FieldBase extends React.Component {
     }
 
     if (prevProps.defaultValue !== this.props.defaultValue) {
+      console.log('This is where this.state.value is set to this.props.defaultValue');
       this.setState({
         value: this.props.defaultValue
       });

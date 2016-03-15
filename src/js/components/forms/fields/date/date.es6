@@ -15,6 +15,7 @@ let validDateFormats = ['MM/DD/YYYY', 'DD/MM/YYYY', 'YYYY/MM/DD', 'MMM D, YYYY']
 class DateField extends FieldBase {
 
   constructor() {
+    console.log('DateField constructor');
     super();
     this.handleDate = this.handleDate.bind(this);
   }
@@ -98,6 +99,7 @@ class DateField extends FieldBase {
   }
 
   momentDate(date) {
+    console.log('Grep this component for references to this.props.dateFormat to see where moment is making the date string wrong');
     if (!date) {
       return null;
     }
